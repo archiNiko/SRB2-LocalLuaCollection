@@ -27,7 +27,7 @@ This repository purely exists for making things I'm proud of public, and because
 |-|-|-|
 |   silenceblocked  | Don't display messages from blocked people in chat    |   on
 |   unblockonleave  |   If someone you\'ve muted leaves, remove them from list (AFTER rejointimeout). Heavily recommended to leave enabled  |   on
-|   blocklog  | Log messages from blockedp people if silenceblocked is on. Saves to /luafiles/client/LOCALMUTE/.    |   on
+|   blocklog  | Log messages from blocked people if silenceblocked is on. Saves to /luafiles/client/LOCALMUTE/.    |   on
 
 # Other contact
 
