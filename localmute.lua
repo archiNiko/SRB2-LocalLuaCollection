@@ -298,16 +298,15 @@ addHook("PlayerMsg", function(s, ty, t, con)
 
     if (gametype == GT_LTMMURDERMYSTERY) or (gametype == GT_SAXASMM) then return end
 
-    if (CheckSetting(1) and CheckSetting(3)) then
-        local towrite = "[\""..CV_FindVar("servername").string.."\"@"..gettimeStamp().."] "..msgtypeReturn(ty, s).."<"..s.name.."> "..con.."\n"
-        local logsize = fileSizeThing(locallog)
-        -- just gonna do slightly less than cap
-        if ((logsize + towrite:len()) > ((1024*1024)-1000)) then locallog = updateLogName() end
-        SaveBlockedMsg(towrite)
-    end
-
     for _,v in pairs(mutedppl) do
         if ((rawequal(s, v)) or (#v == #s) or (v.name == s.name)) then
+            if (CheckSetting(1) and CheckSetting(3)) then
+                local towrite = "[\""..CV_FindVar("servername").string.."\"@"..gettimeStamp().."] "..msgtypeReturn(ty, s).."<"..s.name.."> "..con.."\n"
+                local logsize = fileSizeThing(locallog)
+                -- just gonna do slightly less than cap
+                if ((logsize + towrite:len()) > ((1024*1024)-1000)) then locallog = updateLogName() end
+                SaveBlockedMsg(towrite)
+            end
             return true
         end
     end
