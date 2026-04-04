@@ -133,6 +133,8 @@ local function returnteam(pl)
         [2] =   "BLUE"
     }
 
+    if not (gamestate == GS_LEVEL) then return "???" end
+
     if (G_GametypeHasTeams()) then
         if (pl.ctfteam < 3)
             return string.upper(tostring(teams[pl.ctfteam]))
