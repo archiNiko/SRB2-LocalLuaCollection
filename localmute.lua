@@ -300,7 +300,7 @@ addHook("PlayerMsg", function(s, ty, t, con)
 
     for _,v in pairs(mutedppl) do
         if ((rawequal(s, v)) or (#v == #s) or (v.name == s.name)) then
-            if (CheckSetting(1) and CheckSetting(3)) then
+            if (CheckSetting(1) and CheckSetting(3)) and not (msgtype == 1 and G_GametypeHasTeams() and s.ctfteam ~= consoleplayer.ctfteam) then
                 local towrite = "[\""..CV_FindVar("servername").string.."\"@"..gettimeStamp().."] "..msgtypeReturn(ty, s).."<"..s.name.."> "..con.."\n"
                 local logsize = fileSizeThing(locallog)
                 -- just gonna do slightly less than cap
