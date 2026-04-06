@@ -162,7 +162,7 @@ end
 local function SaveBlockedMsg(save)
     local log = io.openlocal(locallog, "a+")
     if not log then log = io.openlocal(locallog, "w") end
-    if not log then LocalPrint("Something genuinely went horribly wrong. Maybe you haven\'t given SRB2 write access?") return end
+    if not log then LocalPrint("\x83LOCALMUTE\x80: Something genuinely went horribly wrong. Maybe you haven\'t given SRB2 write access?") return end
     -- now reconstruct the message i guess
     log:write(tostring(save))
     log:flush()
@@ -175,7 +175,7 @@ end
 -- t: type ("a" == add, "r" == remove, "w" == wipe)
 local function LocalMute(numstr, t)
 
-    if (t == nil) then LocalPrint("Something\'s wrong.") return end
+    if (t == nil) then LocalPrint("\x83LOCALMUTE\x80: Something\'s wrong.") return end
 
     if (numstr == nil) or (t == "w") then
         ResetMuteList()
@@ -257,9 +257,7 @@ COM_AddCommand("bagel_localmute", function(player, arg, arg2)
 
     if (arg2 == nil) then LocalPrint("\x83LOCALMUTE\x80: Player can\'t be nil!") return end
 
-    if (arg == "a") then LocalMute(arg2, "a") return end
-
-    if (arg == "r") then LocalMute(arg2, "r") return end
+    if (arg == "a") or (arg == "r") then LocalMute(arg2, arg) return end
 
     LocalPrint("\x83LOCALMUTE\x80: Argument(s) invalid!")
 end, COM_LOCAL)
