@@ -3,7 +3,7 @@
 
 -- ladies, gentlemen and unspecified, my codebase is so dirty that i'm resulting to returning these monstrosities
 local function gettimeStamp()
-    return os.date("%Y").."-"..os.date("%m").."-"..os.date("%H").."-"..os.date("%M").."-"..os.date("%S")
+    return os.date("%Y").."-"..os.date("%m").."-"..os.date("%d").."-"..os.date("%H").."-"..os.date("%M").."-"..os.date("%S")
 end
 
 local function updateLogName()
@@ -116,7 +116,6 @@ local function findPtinMutes(pt)
     return false
 end
 
--- why doesn't BLua have a way to get the file size...
 local function fileSizeThing(file)
     local f = io.openlocal(file, "rb")
     if not f then return 0 end
@@ -304,7 +303,7 @@ addHook("PlayerMsg", function(s, ty, t, con)
                 local towrite = "[\""..CV_FindVar("servername").string.."\"@"..gettimeStamp().."] "..msgtypeReturn(ty, s).."<"..s.name.."> "..con.."\n"
                 local logsize = fileSizeThing(locallog)
                 -- just gonna do slightly less than cap
-                if ((logsize + towrite:len()) > ((1024*1024)-1000)) then locallog = updateLogName() end
+                if ((logsize + towrite:len()) > ((1024*1024)-500)) then locallog = updateLogName() end
                 SaveBlockedMsg(towrite)
             end
             return true
