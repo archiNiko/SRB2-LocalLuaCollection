@@ -161,7 +161,7 @@ end
 local function SaveBlockedMsg(save)
     local log = io.openlocal(locallog, "a+")
     if not log then log = io.openlocal(locallog, "w") end
-    if not log then LocalPrint("\x83LOCALMUTE\x80: Something genuinely went horribly wrong. Maybe you haven\'t given SRB2 write access?") return end
+    if not log then LocalPrint("\t\x83LOCALMUTE\x80: Something genuinely went horribly wrong. Maybe you haven\'t given SRB2 write access?") return end
     -- now reconstruct the message i guess
     log:write(tostring(save))
     log:flush()
@@ -174,51 +174,51 @@ end
 -- t: type ("a" == add, "r" == remove, "w" == wipe)
 local function LocalMute(numstr, t)
 
-    if (t == nil) then LocalPrint("\x83LOCALMUTE\x80: Something\'s wrong.") return end
+    if (t == nil) then LocalPrint("\t\x83LOCALMUTE\x80: Something\'s wrong.") return end
 
     if (numstr == nil) or (t == "w") then
         ResetMuteList()
-        LocalPrint("\x83LOCALMUTE\x80: Wiped.")
+        LocalPrint("\t\x83LOCALMUTE\x80: Wiped.")
         return
     end
 
     local itemfound -- INT or false
     local bpt -- player_t return of numstr (used as fallback for removal, and used in addition)
 
-    if (t == "a") and not (netgame) then LocalPrint("\x83LOCALMUTE\x80: You can only mute people in netgames.") return end
+    if (t == "a") and not (netgame) then LocalPrint("\t\x83LOCALMUTE\x80: You can only mute people in netgames!") return end
 
     itemfound = FindItemInArrayByNum(mutedppl, numstr)
     bpt = findPt(numstr)
     if (itemfound == false) and (bpt ~= nil) then
         itemfound = findPtinMutes(bpt)
     else
-        if (bpt == nil) and (itemfound == false) and (t == "r") then LocalPrint("\x83LOCALMUTE\x80: Found nothing!") return end
+        if (bpt == nil) and (itemfound == false) and (t == "r") then LocalPrint("\t\x83LOCALMUTE\x80: Found nothing!") return end
     end
 
     -- invalid p[name/num]
-    if (bpt == nil) then LocalPrint("\x83LOCALMUTE\x80: Player not found!") return end
-    if (bpt == consoleplayer) then LocalPrint("\x83LOCALMUTE\x80: You can\'t mute yourself, silly!") return end
+    if (bpt == nil) then LocalPrint("\t\x83LOCALMUTE\x80: Player not found!") return end
+    if (bpt == consoleplayer) then LocalPrint("\t\x83LOCALMUTE\x80: You can\'t mute yourself, silly!") return end
 
     if (t == "a") then
         if (itemfound == false) then
             table.insert(mutedppl, bpt)
             SaveBlockedMsg("Blocked "..bpt.name.." (#"..#bpt..") @ "..gettimeStamp().." in \""..CV_FindVar("servername").string.."\".\n")
-            LocalPrint("\x83LOCALMUTE\x80: Muted player \""..bpt.name.."\" ".."(Player "..#bpt..").")
+            LocalPrint("\t\x83LOCALMUTE\x80: Muted player \""..bpt.name.."\" ".."(Player "..#bpt..").")
             return
         else
-            LocalPrint("\x83LOCALMUTE\x80: Already muted!")
+            LocalPrint("\t\x83LOCALMUTE\x80: Already muted!")
             return
         end
     end
 
     if (t == "r") then
         if (itemfound == false) then
-            LocalPrint("\x83LOCALMUTE\x80: Player isn\'t muted.")
+            LocalPrint("\t\x83LOCALMUTE\x80: Player isn\'t muted.")
             return
         else
             SaveBlockedMsg("Unblocked "..mutedppl[itemfound].name.." @ "..gettimeStamp().." in \""..CV_FindVar("servername").string.."\".\n")
             table.remove(mutedppl, itemfound)
-            LocalPrint("\x83LOCALMUTE\x80: Removed.")
+            LocalPrint("\t\x83LOCALMUTE\x80: Removed.")
             return
         end
     end
@@ -236,7 +236,7 @@ local function ListMutes()
 
         list = $.."\nEnd of list."
     else
-        list = "\x83LOCALMUTE\x80: You haven\'t muted anyone!\n"
+        list = "\t\x83LOCALMUTE\x80: You haven\'t muted anyone!\n"
     end
 
     return list
@@ -254,11 +254,11 @@ COM_AddCommand("bagel_localmute", function(player, arg, arg2)
 
     if (arg == "l") then LocalPrint(ListMutes()) return end
 
-    if (arg2 == nil) then LocalPrint("\x83LOCALMUTE\x80: Player can\'t be nil!") return end
+    if (arg2 == nil) then LocalPrint("\t\x83LOCALMUTE\x80: Player can\'t be nil!") return end
 
     if (arg == "a") or (arg == "r") then LocalMute(arg2, arg) return end
 
-    LocalPrint("\x83LOCALMUTE\x80: Argument(s) invalid!")
+    LocalPrint("\t\x83LOCALMUTE\x80: Argument(s) invalid!")
 end, COM_LOCAL)
 
 COM_AddCommand("bagel_changelocalbool", function(player, arg)
@@ -283,14 +283,14 @@ COM_AddCommand("bagel_changelocalbool", function(player, arg)
     if (anyresults == false) or (booleanid == 0) then LocalPrint("Boolean doesnt exist!") return end
 
     FlipLocalBoolean(localbooleanvalues, booleanid)
-    LocalPrint( "\x82"..localbooleanlist[booleanid].."\x80 is now "..LocalBooleanState(localbooleanvalues[booleanid])..".")
+    LocalPrint("\x82"..localbooleanlist[booleanid].."\x80 is now "..LocalBooleanState(localbooleanvalues[booleanid])..".")
 end, COM_LOCAL)
 
 -- Hooks
 
 addHook("PlayerMsg", function(s, ty, t, con)
 
-    if not (CheckSetting(1))  then return end
+    if not (CheckSetting(1)) then return end
 
     -- These redo chat
     if (PSO or juggy) then return end
