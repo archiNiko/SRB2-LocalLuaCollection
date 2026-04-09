@@ -20,10 +20,11 @@ local localbooleandescription = {
     "Save messages from blocked people into \"/luafiles/client/LOCALMUTE/\"!"
 }
 
+-- same order as localbooleanlist, commented with it still so you can be lazy
 local localbooleanvalues = {
-    "on",
-    "on",
-    "on"
+    "on",   -- silenceblocked
+    "on",   -- unblockonleave
+    "on"    -- blocklog
 }
 
 -- this is where player_t's go
@@ -246,7 +247,7 @@ COM_AddCommand("bagel_localmute", function(player, arg, arg2)
     if (arg == nil) and (arg2 == nil) then
         LocalPrint("bagel_localmute <a/r/w/l> <player[name/num]>: Mute player by name or playernum")
         LocalPrint("\t- \"a\": add, \"r\": remove, \"w\": wipe, \"l\": list all")
-        LocalPrint("\t\t- eg. \"bagel_localmute a 1\", \"b_localmute r 1\"")
+        LocalPrint("\t\t- eg. \"bagel_localmute a 1\", \"bagel_localmute r 1\"")
         return
     end
 
