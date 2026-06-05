@@ -1,6 +1,6 @@
 # Huh?
 
-This is a collection of SRB2 BLua scripts that are namely intended to be used with [SRB2-edit by luigi-budd](https://github.com/luigi-budd/SRB2-edit/), or any build that can load Lua locally (though it's only tested on SRB2-edit unless said otherwise!)
+This is a collection of SRB2 BLua scripts that are namely intended to be used with [SRB2 Banpyura by Glide KS](https://github.com/GLideKS/SRB2-Banpyura), or any build that can load Lua locally (though it's only tested on SRB2 Banpyura unless said otherwise!)
 
 This repository purely exists for making things I'm proud of public, and because I think that gatekeeping them would be counterproductive.
 
@@ -32,7 +32,5 @@ This repository purely exists for making things I'm proud of public, and because
 # Other contact
 
 If you don't wanna open an issue for whatever reason (or don't have GitHub, I guess), slide me a message:
-
-Discord: drstuffdbagel
 
 Matrix: bageltheidiot:matrix.org
